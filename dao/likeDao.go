@@ -62,6 +62,7 @@ func UsersOfLikeVideo(videoId int64) ([]int64, int64, error) {
 // UpdateLikeInfo 更新点赞数据
 func UpdateLikeInfo(userId int64, videoId int64, liked int8) error {
 	// Update即使更新不存在的记录也不会报错
+	// where user_id = userid AND video_id = videoid
 	result := Db.Model(Like{}).Where(map[string]interface{}{"user_id": userId, "video_id": videoId}).Update("liked", liked)
 	if result.RowsAffected == 0 {
 		return errors.New("update like failed, record not exists")
@@ -72,6 +73,7 @@ func UpdateLikeInfo(userId int64, videoId int64, liked int8) error {
 
 // InsertLikeInfo 插入点赞数据
 func InsertLikeInfo(like Like) error {
+	// 使用Like模板插入数据
 	err := Db.Model(Like{}).Create(&like).Error
 	if err != nil {
 		log.Println(err.Error())

@@ -2,12 +2,13 @@ package rabbitmq
 
 import (
 	"fmt"
-	amqp "github.com/rabbitmq/amqp091-go"
 	"log"
 	"strconv"
 	"strings"
 	"time"
 	"x-tiktok/dao"
+
+	amqp "github.com/rabbitmq/amqp091-go"
 )
 
 type LikeMQ struct {
@@ -83,7 +84,7 @@ func (r *LikeMQ) ConsumeSimple() {
 
 	//接收消息
 	msgs, err := r.channel.Consume(
-		q.Name, // queue
+		q.Name, // queue，为点赞或取消点赞，与r.QueueName是一个东西
 		//用来区分多个消费者
 		"", // consumer
 		//是否自动应答
@@ -127,7 +128,7 @@ func (r *LikeMQ) consumerLikeAdd(msgs <-chan amqp.Delivery) {
 		// 解析参数
 		params := strings.Split(fmt.Sprintf("%s", msg.Body), "-")
 		log.Println("添加点赞关系消费者获得 params:", params)
-		userId, _ := strconv.ParseInt(params[0], 10, 64)
+		userId, _ := strconv.ParseInt(params[0], 10, 64) //十进制，64位
 		videoId, _ := strconv.ParseInt(params[1], 10, 64)
 		insertOrUpdate := params[2]
 		// 数据库操作，最大重试次数 cnt
