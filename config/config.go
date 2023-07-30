@@ -19,6 +19,7 @@ const (
 	OSS_VIDEO_DIR         = "OSS_VIDEO_DIR"
 	PLAY_URL_PREFIX       = CUSTOM_DOMAIN + OSS_VIDEO_DIR
 	COVER_URL_SUFFIX      = "?x-oss-process=video/snapshot,t_2000,m_fast"
+	SECRETE				  = "my_secret"
 )
 
 const LIKE = 1

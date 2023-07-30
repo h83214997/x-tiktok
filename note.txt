@@ -2,3 +2,4 @@
 首先初始化中间件，进入router.go
 初始化Redis，RabbitMQ（消息队列，有publish和consum方法进行发送和接受，其中使用一个forever使其永久运行），将接受信息使用split方法，根据 - 分割，获取信息
 每个MQ对应一个dao包，进行数据库操作。dao包使用mysql数据，封装了增删改查
+jwt中间件
