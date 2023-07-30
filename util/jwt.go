@@ -18,6 +18,7 @@ var jwtSecretKey = []byte(config.SECRETE)
 
 func GenerateToken(userId int64, username string) string {
 	nowTime := time.Now()
+	// 密钥有效期为24小时
 	expireTime := nowTime.Add(24 * time.Hour).Unix()
 	log.Println("expireTime:", expireTime)
 	claims := Claims{
@@ -28,7 +29,7 @@ func GenerateToken(userId int64, username string) string {
 			Issuer:    "x-tiktok",
 		},
 	}
-	// 使用用于签名的算法和令牌
+	// 使用用于签名的算法生成token
 	tokenClaims := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	// 创建JWT字符串
 	if token, err := tokenClaims.SignedString(jwtSecretKey); err != nil {

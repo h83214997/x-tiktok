@@ -2,4 +2,11 @@
 首先初始化中间件，进入router.go
 初始化Redis，RabbitMQ（消息队列，有publish和consum方法进行发送和接受，其中使用一个forever使其永久运行），将接受信息使用split方法，根据 - 分割，获取信息
 每个MQ对应一个dao包，进行数据库操作。dao包使用mysql数据，封装了增删改查
-jwt中间件
+jwt中间件 用于鉴权，在util包下的jwt.go定义了，使用SigningMethodHS256进行密码生成。在middleware包的jwt的auth.go中定义了鉴权函数。判断是否带有token，token解码后是否有err，若有，则abort，否则继续执行。
+type Claims struct {
+	ID       int64
+	Username string
+	jwt.StandardClaims
+}
+
+各功能模块的controller
