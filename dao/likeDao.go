@@ -6,11 +6,12 @@ import (
 	"time"
 )
 
+// 一个点赞对应一条记录，统计点赞数时直接通过这个记录来count（牛逼），但是这样不会产生大量的记录吗？用空间换时间
 type Like struct {
 	Id        int64
 	UserId    int64
 	VideoId   int64
-	Liked     int8
+	Liked     int8 //判断是不是点赞了（这里取消点赞将这个值置为0，而不是删除记录）可以删除以加快访问速度
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
@@ -22,6 +23,7 @@ func (Like) TableName() string {
 // GetLikeListByUserId 获取当前用户点赞视频id列表
 func GetLikeListByUserId(userId int64) ([]int64, int64, error) {
 	var LikedList []int64
+	// pluck将某一列的值提取到切片中
 	result := Db.Model(&Like{}).Where("user_id=? and liked=?", userId, 1).Order("created_at desc").Pluck("video_id", &LikedList)
 	likeCnt := result.RowsAffected
 	if result.Error != nil {

@@ -18,6 +18,7 @@ const (
 	CUSTOM_DOMAIN         = "CUSTOM_DOMAIN"
 	OSS_VIDEO_DIR         = "OSS_VIDEO_DIR"
 	OSS_USER_AVATAR_DIR   = "需要一个头像的地址"
+	ExpireTime            = 30 * time.Hour
 	PLAY_URL_PREFIX       = CUSTOM_DOMAIN + OSS_VIDEO_DIR
 	COVER_URL_SUFFIX      = "?x-oss-process=video/snapshot,t_2000,m_fast"
 	SECRETE               = "my_secret"

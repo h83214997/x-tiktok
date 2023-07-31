@@ -188,12 +188,13 @@ func ImportUserIdsFromDb(videoId int64, userIds []int64) error {
 // GetUserLikeCountByRedis 通过 Redis 获取用户点赞视频的数量
 func GetUserLikeCountByRedis(userId int64) (int64, error) {
 	userIdStr := strconv.FormatInt(userId, 10)
+	// RdbUVid 根据userId找到他点赞过的videoId，exists判断该键是否存在
 	keyCnt, err := redis.RdbUVid.Exists(redis.Ctx, userIdStr).Result()
 	if err != nil {
 		log.Println(err)
 	}
 	if keyCnt > 0 {
-		// RdbUVid 存在 userId
+		// RdbUVid 存在 userId SCard根据当前用户id获取点赞视频id的集合的数量
 		cnt, _ := redis.RdbUVid.SCard(redis.Ctx, userIdStr).Result()
 		return cnt, nil
 	} else {

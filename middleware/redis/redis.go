@@ -2,9 +2,10 @@ package redis
 
 import (
 	"context"
-	"github.com/redis/go-redis/v9"
 	"log"
 	"time"
+
+	"github.com/redis/go-redis/v9"
 )
 
 var Ctx = context.Background()
@@ -35,6 +36,7 @@ var RdbUVid *redis.Client
 // RdbVUid 根据videoId找到点赞过它的userId
 var RdbVUid *redis.Client
 
+// 这里需要自己写服务器地址
 const (
 	ProdRedisAddr = "ip:port"
 	ProRedisPwd   = "redis-passwd"
