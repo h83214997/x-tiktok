@@ -2,14 +2,15 @@ package service
 
 import (
 	"fmt"
-	"github.com/aliyun/aliyun-oss-go-sdk/oss"
-	"github.com/google/uuid"
 	"log"
 	"mime/multipart"
 	"sync"
 	"time"
 	"x-tiktok/config"
 	"x-tiktok/dao"
+
+	"github.com/aliyun/aliyun-oss-go-sdk/oss"
+	"github.com/google/uuid"
 )
 
 type VideoServiceImpl struct {
@@ -25,7 +26,9 @@ var (
 
 // GetVideoServiceInstance Go 单例模式：https://www.liwenzhou.com/posts/Go/singleton/
 func GetVideoServiceInstance() *VideoServiceImpl {
+	// 在一次运行中只执行一次
 	videoServiceOnce.Do(func() {
+		// 视频服务涉及到用户，评论，点赞模块
 		videoServiceImp = &VideoServiceImpl{
 			UserService:    &UserServiceImpl{},
 			CommentService: &CommentServiceImpl{},
@@ -50,8 +53,10 @@ func (videoService *VideoServiceImpl) Publish(data *multipart.FileHeader, title 
 	return nil
 }
 
+// 通过latest_time 和 user_id 获取视频列表，视频的最新时间
 func (videoService *VideoServiceImpl) Feed(latestTime time.Time, userId int64) ([]Video, time.Time, error) {
 	videos := make([]Video, 0, config.VIDEO_NUM_PER_REFRESH)
+	// 查询数据库，获取视频列表
 	plainVideos, err := dao.GetVideosByLatestTime(latestTime)
 	if err != nil {
 		log.Println("GetVideosByLatestTime:", err)
@@ -114,6 +119,7 @@ func UploadVideoToOSS(file *multipart.FileHeader, videoName string) error {
 	return nil
 }
 
+// 防查重用的？将数据库的dao.video结构转换成需要返回的Video结构
 func (videoService *VideoServiceImpl) getRespVideos(videos *[]Video, plainVideos *[]dao.Video, userId int64) error {
 	for _, tmpVideo := range *plainVideos {
 		var video Video

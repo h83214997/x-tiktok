@@ -17,9 +17,12 @@ const (
 	OSS_ENDPOINT          = "OSS_ENDPOINT"
 	CUSTOM_DOMAIN         = "CUSTOM_DOMAIN"
 	OSS_VIDEO_DIR         = "OSS_VIDEO_DIR"
+	OSS_USER_AVATAR_DIR   = "需要一个头像的地址"
 	PLAY_URL_PREFIX       = CUSTOM_DOMAIN + OSS_VIDEO_DIR
 	COVER_URL_SUFFIX      = "?x-oss-process=video/snapshot,t_2000,m_fast"
-	SECRETE				  = "my_secret"
+	SECRETE               = "my_secret"
+	SIGNATURE             = "这个人很懒，什么都没写"
+	BG_IMAGE              = "这里需要一个背景图的地址，用作默认背景"
 )
 
 const LIKE = 1

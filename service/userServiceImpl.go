@@ -161,6 +161,7 @@ func (usi *UserServiceImpl) GetUserLoginInfoByIdWithCurId(id int64, curId int64)
 		FavoriteCount:   10,
 		WorkCount:       8,
 	}
+	// 获取用户基础的信息：id，昵称，密码，创建时间，更新时间
 	u, err := dao.GetUserBasicInfoById(id)
 	fmt.Println(u)
 	if err != nil {
@@ -169,6 +170,7 @@ func (usi *UserServiceImpl) GetUserLoginInfoByIdWithCurId(id int64, curId int64)
 	}
 	user.Id = u.Id
 	user.Name = u.Name
+	// 获取用户接口，用来获取用户信息
 	userService := GetUserServiceInstance()
 
 	var wg sync.WaitGroup

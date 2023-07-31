@@ -87,6 +87,7 @@ func GetVideoByVideoId(videoId int64) (Video, error) {
 // GetVideoListById 根据videoIdList查询视频信息
 func GetVideoListById(videoIdList []int64) ([]Video, error) {
 	var videoList []Video
+	// Model 对指定字段进行操作
 	result := Db.Model(Video{}).
 		Where("id in (?)", videoIdList).
 		Find(&videoList)

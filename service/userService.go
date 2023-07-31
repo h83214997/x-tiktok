@@ -28,9 +28,9 @@ type User struct {
 	FollowCount     int64  `json:"follow_count"`
 	FollowerCount   int64  `json:"follower_count"`
 	IsFollow        bool   `json:"is_follow"`
-	Avatar          string `json:"avatar"`
+	Avatar          string `json:"avatar"` //头像
 	BackgroundImage string `json:"background_image"`
-	Signature       string `json:"signature"`
+	Signature       string `json:"signature"` //个人简介
 	TotalFavorited  int64  `json:"total_favorited"`
 	WorkCount       int64  `json:"work_count"`
 	FavoriteCount   int64  `json:"favorite_count"`
