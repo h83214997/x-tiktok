@@ -119,7 +119,7 @@ func UploadVideoToOSS(file *multipart.FileHeader, videoName string) error {
 	return nil
 }
 
-// 防查重用的？将数据库的dao.video结构转换成需要返回的Video结构
+// 将数据库的dao.video结构转换成需要返回的Video结构
 func (videoService *VideoServiceImpl) getRespVideos(videos *[]Video, plainVideos *[]dao.Video, userId int64) error {
 	for _, tmpVideo := range *plainVideos {
 		var video Video
